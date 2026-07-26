@@ -95,3 +95,13 @@ pattern math to be exact.
       assumed by `diagnostics.async_get_ap_info_for_tag` (debug plugin).
       If not, that function needs to be adapted to however OEPL actually
       exposes this (e.g. a dedicated AP entity/attribute).
+- [x] Confirmed on real hardware: the tag's `device.model` is `M3 2.6"`
+      (added to `el026h3bra.json`'s `model_aliases`). The AP device shows
+      up alongside it as an `open_epaper_link` device with a model like
+      `Yellow AP` (and possibly a second device such as `TFT 320x172` for
+      an AP with its own screen) — `TagRegistry.async_scan()` now skips
+      any unmatched device that has a `configuration_url` set (the
+      standard HA convention for hub/gateway devices) so the AP doesn't
+      clutter the "unmatched tags" listing. This is a heuristic, not a
+      guarantee — if a real tag's device ever gets a `configuration_url`,
+      it would be silently excluded from that listing too.

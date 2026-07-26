@@ -37,6 +37,9 @@ async def test_match_device_model_exact_and_alias(hass):
     assert registry.match_device_model("EL026H3BRA") is not None
     assert registry.match_device_model("el026h3bra") is not None
     assert registry.match_device_model("Solum Newton 2.6") is not None
+    # Confirmed on real hardware: this is the exact device.model string
+    # OpenEPaperLink reports for the EL026H3BRA.
+    assert registry.match_device_model('M3 2.6"') is not None
     assert registry.match_device_model("Unknown Tag XYZ") is None
     assert registry.match_device_model(None) is None
 
@@ -93,6 +96,34 @@ async def test_tag_registry_unmatched_device(hass):
 
     assert tag_registry.matched == {}
     assert tag_registry.unmatched[device.id] == "Some Unknown Tag"
+
+
+async def test_tag_registry_excludes_hub_like_device_from_unmatched(hass):
+    # Regression test: the OEPL Access Point is also an `open_epaper_link`
+    # device with a model that never matches a tag definition, but it
+    # shouldn't clutter the "unmatched tags" listing users see in the
+    # options flow. It's identified heuristically by having a
+    # configuration_url set (the standard HA convention for hub/gateway
+    # devices), same as real APs reported by users.
+    definition_registry = TagDefinitionRegistry(hass)
+    await definition_registry.async_load()
+
+    config_entry = MockConfigEntry(domain=OEPL_DOMAIN)
+    config_entry.add_to_hass(hass)
+
+    device_registry = dr.async_get(hass)
+    device_registry.async_get_or_create(
+        config_entry_id=config_entry.entry_id,
+        identifiers={(OEPL_DOMAIN, "AP-11:22:33:44:55:66")},
+        model="Yellow AP",
+        configuration_url="http://192.168.1.50",
+    )
+
+    tag_registry = TagRegistry(hass, definition_registry)
+    tag_registry.async_scan()
+
+    assert tag_registry.matched == {}
+    assert tag_registry.unmatched == {}
 
 
 async def test_tag_registry_override_takes_priority(hass):
