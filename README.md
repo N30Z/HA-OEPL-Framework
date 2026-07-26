@@ -40,8 +40,11 @@ integration, which must already be installed and configured.
 2. **Manage tags** → pick a discovered tag → choose which plugin pages to
    show, whether to auto-cycle (and how often), and whether the tag's
    physical buttons should control page/LED actions.
-3. **Manage plugins** → the bundled demo plugin is enabled by default;
-   add more via a custom GitHub repository URL, or via **Discover
+3. **Manage plugins** → two bundled plugins are enabled by default: a
+   demo clock/sensor page, and a **Debug Info** page (tag MAC, signal
+   strength, battery, the OEPL Access Point's name/IP, and this Home
+   Assistant instance's local IP — handy when setting up a new tag).
+   Add more via a custom GitHub repository URL, or via **Discover
    plugins**, which lists any public repo under a GitHub owner named
    `HAOEPL-Plugin_*` (e.g. `HAOEPL-Plugin_AWSH`) so you don't have to add
    your own plugins one by one.

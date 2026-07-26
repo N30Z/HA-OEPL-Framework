@@ -14,10 +14,10 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING, Any
 
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.event import async_call_later
 
 from .const import DEFAULT_LED_EFFECT_DURATION_SECONDS, DEFAULT_LED_THRESHOLDS
+from .diagnostics import async_get_tag_battery_percent
 from .renderer import async_flash_led, async_led_off
 
 if TYPE_CHECKING:
@@ -143,32 +143,3 @@ def _resolve_supported_color(color: str, supported: list[str]) -> str | None:
         if fallback in supported:
             return fallback
     return supported[0] if supported else None
-
-
-async def async_get_tag_battery_percent(hass: HomeAssistant, device_id: str) -> int | None:
-    """Best-effort lookup of a tag's battery percentage.
-
-    Matches any ``sensor`` entity on the device with device_class
-    ``battery`` — this is the standard HA convention and is expected to
-    match OEPL's battery sensor, but should be confirmed against a live
-    OEPL setup (see docs/architecture.md verification notes).
-    """
-    entity_registry = er.async_get(hass)
-    for entity in er.async_entries_for_device(entity_registry, device_id):
-        if entity.domain != "sensor":
-            continue
-        is_battery = (
-            entity.original_device_class == "battery"
-            or entity.device_class == "battery"
-            or "battery" in entity.entity_id.lower()
-        )
-        if not is_battery:
-            continue
-        state = hass.states.get(entity.entity_id)
-        if state is None:
-            continue
-        try:
-            return int(float(state.state))
-        except (TypeError, ValueError):
-            continue
-    return None

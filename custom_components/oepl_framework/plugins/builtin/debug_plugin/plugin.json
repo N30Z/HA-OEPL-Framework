@@ -1,0 +1,13 @@
+{
+  "id": "debug_plugin",
+  "name": "Debug Info Page",
+  "version": "1.0.0",
+  "min_framework_version": "0.1.0",
+  "entry_point": "plugin:DebugPlugin",
+  "pages": [
+    { "id": "debug", "name": "Debug Info" }
+  ],
+  "description": "Bundled diagnostics page: tag MAC, signal strength, battery, AP name/IP, and this Home Assistant instance's local IP.",
+  "author": "N30Z",
+  "homepage": "https://github.com/N30Z/HA-OEPL-Framework"
+}

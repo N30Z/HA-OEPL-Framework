@@ -124,6 +124,23 @@ Naming your own plugin repos `HAOEPL-Plugin_<Something>` is recommended
 so they're picked up by discovery automatically; it is not required for
 "Add custom plugin repository", which works with any repo name.
 
+## Bundled reference plugins
+
+Two plugins ship with the framework itself as working examples:
+
+- [`demo_plugin`](../custom_components/oepl_framework/plugins/builtin/demo_plugin/)
+  — a minimal clock/sensor page, the smallest possible complete plugin.
+- [`debug_plugin`](../custom_components/oepl_framework/plugins/builtin/debug_plugin/)
+  — a diagnostics page (tag MAC, signal strength, battery, the linked OEPL
+  Access Point's name/IP, and this Home Assistant instance's own local
+  IP), useful when setting up or troubleshooting a tag. It demonstrates
+  reading beyond `ctx` — the device/entity registries and local network
+  info — via the shared helpers in
+  [`diagnostics.py`](../custom_components/oepl_framework/diagnostics.py)
+  (`async_get_tag_battery_percent`, `async_get_tag_signal_strength`,
+  `async_get_ap_info_for_tag`, `get_local_ha_ip`), which your own plugin
+  can reuse instead of re-implementing the same registry lookups.
+
 ## Real-world examples (planned, not part of this repo)
 
 Separate plugin repositories, following the `HAOEPL-Plugin_*` naming

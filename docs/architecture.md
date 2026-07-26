@@ -82,7 +82,16 @@ pattern math to be exact.
       `features.status_led.verified: true` once confirmed (or
       `controllable: false` if not supported).
 - [ ] Confirm which sensor entity/device_class exposes battery percentage
-      for OEPL tags, used by `led_controller.async_get_tag_battery_percent`.
+      for OEPL tags, used by `diagnostics.async_get_tag_battery_percent`.
 - [ ] Confirm `BUTTON1`/`BUTTON2` map to the physically-expected buttons.
 - [ ] Visually verify a real `drawcustom` payload on the 360×184 panel
       (dithering, "accent" color behavior).
+- [ ] Confirm which sensor entity/device_class exposes a tag's radio
+      signal strength (RSSI), used by
+      `diagnostics.async_get_tag_signal_strength` (debug plugin).
+- [ ] Confirm whether OEPL links a tag device to its AP device via the HA
+      device registry's `via_device`/`via_device_id` relationship, and
+      whether the AP device's `configuration_url` holds its IP — both
+      assumed by `diagnostics.async_get_ap_info_for_tag` (debug plugin).
+      If not, that function needs to be adapted to however OEPL actually
+      exposes this (e.g. a dedicated AP entity/attribute).

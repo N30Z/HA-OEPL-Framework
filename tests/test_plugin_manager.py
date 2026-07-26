@@ -48,8 +48,10 @@ async def test_disable_plugin_removes_it_from_available_pages(hass):
     await manager.async_load()
 
     await manager.async_disable_plugin("demo_plugin")
-    assert manager.get_available_pages(enabled_only=True) == []
-    assert manager.get_available_pages(enabled_only=False) != []
+    enabled_plugin_ids = {ref.plugin_id for ref in manager.get_available_pages(enabled_only=True)}
+    assert "demo_plugin" not in enabled_plugin_ids
+    all_plugin_ids = {ref.plugin_id for ref in manager.get_available_pages(enabled_only=False)}
+    assert "demo_plugin" in all_plugin_ids
 
     await manager.async_enable_plugin("demo_plugin")
     assert manager.get_available_pages(enabled_only=True) != []
