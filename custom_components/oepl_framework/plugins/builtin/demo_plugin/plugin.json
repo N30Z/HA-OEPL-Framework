@@ -1,0 +1,14 @@
+{
+  "id": "demo_plugin",
+  "name": "Demo Clock & Sensor Plugin",
+  "version": "1.0.0",
+  "min_framework_version": "0.1.0",
+  "entry_point": "plugin:DemoPlugin",
+  "pages": [
+    { "id": "clock", "name": "Clock" },
+    { "id": "sensor", "name": "Sensor Value" }
+  ],
+  "description": "Bundled demo plugin proving the Plugin API end-to-end.",
+  "author": "N30Z",
+  "homepage": "https://github.com/N30Z/HA-OEPL-Framework"
+}

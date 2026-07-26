@@ -1,0 +1,100 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "OEPL Page Framework",
+        "description": "Richtet das Plugin-/Seiten-Framework für deine OpenEPaperLink-Tags ein. Die OpenEPaperLink-Integration muss bereits installiert und eingerichtet sein."
+      }
+    },
+    "abort": {
+      "oepl_not_installed": "Die OpenEPaperLink-Integration muss zuerst installiert und eingerichtet werden.",
+      "already_configured": "OEPL Page Framework ist bereits eingerichtet."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "OEPL Page Framework",
+        "menu_options": {
+          "manage_plugins": "Plugins verwalten",
+          "manage_tags": "Tags verwalten",
+          "rescan_tags": "Nach Tags suchen"
+        }
+      },
+      "manage_plugins": {
+        "title": "Plugins verwalten",
+        "menu_options": {
+          "add_custom_repo": "Eigenes Plugin-Repository hinzufügen",
+          "discover_plugins": "Plugins anhand Namensschema erkennen",
+          "manage_installed": "Installierte Plugins aktivieren/deaktivieren/entfernen"
+        }
+      },
+      "discover_plugins": {
+        "title": "Plugins erkennen",
+        "description": "Listet öffentliche GitHub-Repositories des angegebenen Besitzers, deren Name mit \"{prefix}\" beginnt (z. B. \"{prefix}AWSH\"), damit du sie nicht einzeln hinzufügen musst. Wähle die zu installierenden Repositories aus.",
+        "data": {
+          "owner": "GitHub-Besitzer",
+          "repos": "Zu installierende Repositories",
+          "confirm_trust": "Ich vertraue diesen Repositories und bin mir bewusst, dass deren Code ausgeführt wird"
+        }
+      },
+      "add_custom_repo": {
+        "title": "Eigenes Plugin-Repository hinzufügen",
+        "description": "Dies lädt Python-Code aus dem angegebenen GitHub-Repository herunter und führt ihn aus. Füge nur Repositories hinzu, denen du vertraust — das funktioniert wie bei HACS Custom Repositories.",
+        "data": {
+          "owner": "GitHub-Besitzer",
+          "repo": "Repository-Name",
+          "ref": "Branch, Tag oder Commit",
+          "confirm_trust": "Ich vertraue diesem Repository und bin mir bewusst, dass dessen Code ausgeführt wird"
+        }
+      },
+      "manage_installed": {
+        "title": "Installierte Plugins verwalten",
+        "data": {
+          "plugin_id": "Plugin",
+          "action": "Aktion"
+        }
+      },
+      "manage_tags": {
+        "title": "Tags verwalten",
+        "description": "Bisher gesehene, nicht zugeordnete OpenEPaperLink-Tag-Modelle (füge diese den model_aliases einer tag_definitions/*.json hinzu, um sie zu unterstützen): {unmatched}",
+        "data": {
+          "device_id": "Tag"
+        }
+      },
+      "tag_options": {
+        "title": "Tag konfigurieren: {tag_name}",
+        "data": {
+          "pages": "Seiten für diesen Tag",
+          "auto_cycle_enabled": "Seiten automatisch durchschalten",
+          "cycle_interval_seconds": "Zyklus-Intervall (Sekunden)",
+          "physical_buttons_enabled": "Auf physische Tasten des Tags reagieren"
+        }
+      }
+    },
+    "abort": {
+      "no_tags_found": "Es wurden noch keine passenden OpenEPaperLink-Tags gefunden. Stelle sicher, dass OpenEPaperLink deinen Tag erkannt hat, und nutze dann \"Nach Tags suchen\". Bisher gesehene, nicht zugeordnete Tag-Modelle: {unmatched}",
+      "no_plugins_installed": "Es sind noch keine Plugins installiert.",
+      "tag_no_longer_available": "Dieser Tag ist nicht mehr verfügbar."
+    },
+    "error": {
+      "plugin_install_failed": "Das Plugin konnte nicht installiert werden. Prüfe Besitzer/Repository/Branch und ob das Repository eine gültige plugin.json enthält.",
+      "trust_required": "Du musst bestätigen, dass du diesem Repository vertraust, bevor es installiert werden kann.",
+      "discovery_failed": "Die Repositories dieses GitHub-Besitzers konnten nicht abgerufen werden. Prüfe die Schreibweise und versuche es erneut."
+    }
+  },
+  "entity": {
+    "select": {
+      "active_page": { "name": "Aktive Seite" }
+    },
+    "switch": {
+      "auto_cycle": { "name": "Automatischer Zyklus" }
+    },
+    "button": {
+      "next_page": { "name": "Nächste Seite" },
+      "previous_page": { "name": "Vorherige Seite" },
+      "refresh_page": { "name": "Seite aktualisieren" },
+      "show_battery_led": { "name": "Akkustatus anzeigen (LED)" }
+    }
+  }
+}

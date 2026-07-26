@@ -1,0 +1,18 @@
+{
+  "plugins": [
+    {
+      "id": "demo_plugin",
+      "name": "Demo Clock & Sensor Plugin",
+      "source": "builtin",
+      "description": "Bundled demo plugin proving the Plugin API end-to-end.",
+      "homepage": "https://github.com/N30Z/HA-OEPL-Framework"
+    },
+    {
+      "id": "debug_plugin",
+      "name": "Debug Info Page",
+      "source": "builtin",
+      "description": "Bundled diagnostics page: tag MAC, signal strength, battery, AP name/IP, and this Home Assistant instance's local IP.",
+      "homepage": "https://github.com/N30Z/HA-OEPL-Framework"
+    }
+  ]
+}

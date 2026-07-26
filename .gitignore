@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+.coverage
+htmlcov/
+
+# Runtime-downloaded custom plugins are never committed
+custom_components/oepl_framework/installed_plugins/*
+!custom_components/oepl_framework/installed_plugins/__init__.py
+!custom_components/oepl_framework/installed_plugins/README.md

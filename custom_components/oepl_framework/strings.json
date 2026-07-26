@@ -1,0 +1,100 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "OEPL Page Framework",
+        "description": "Sets up the plugin/page framework for your OpenEPaperLink tags. Requires the OpenEPaperLink integration to already be installed and configured."
+      }
+    },
+    "abort": {
+      "oepl_not_installed": "The OpenEPaperLink integration must be installed and configured first.",
+      "already_configured": "OEPL Page Framework is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "OEPL Page Framework",
+        "menu_options": {
+          "manage_plugins": "Manage plugins",
+          "manage_tags": "Manage tags",
+          "rescan_tags": "Rescan for tags"
+        }
+      },
+      "manage_plugins": {
+        "title": "Manage plugins",
+        "menu_options": {
+          "add_custom_repo": "Add custom plugin repository",
+          "discover_plugins": "Discover plugins by naming convention",
+          "manage_installed": "Enable / disable / remove installed plugins"
+        }
+      },
+      "discover_plugins": {
+        "title": "Discover plugins",
+        "description": "Lists public GitHub repositories under the given owner whose name starts with \"{prefix}\" (e.g. \"{prefix}AWSH\"), so you don't have to add them one by one. Select the ones to install.",
+        "data": {
+          "owner": "GitHub owner",
+          "repos": "Repositories to install",
+          "confirm_trust": "I trust these repositories and understand they will run their code"
+        }
+      },
+      "add_custom_repo": {
+        "title": "Add custom plugin repository",
+        "description": "This downloads and imports Python code from the GitHub repository you specify. Only add repositories you trust — this works the same way HACS custom repositories do.",
+        "data": {
+          "owner": "GitHub owner",
+          "repo": "Repository name",
+          "ref": "Branch, tag or commit",
+          "confirm_trust": "I trust this repository and understand it will run its code"
+        }
+      },
+      "manage_installed": {
+        "title": "Manage installed plugins",
+        "data": {
+          "plugin_id": "Plugin",
+          "action": "Action"
+        }
+      },
+      "manage_tags": {
+        "title": "Manage tags",
+        "description": "Unmatched OpenEPaperLink tag models seen so far (add these to a tag_definitions/*.json's model_aliases to support them): {unmatched}",
+        "data": {
+          "device_id": "Tag"
+        }
+      },
+      "tag_options": {
+        "title": "Configure tag: {tag_name}",
+        "data": {
+          "pages": "Pages to show on this tag",
+          "auto_cycle_enabled": "Automatically cycle pages",
+          "cycle_interval_seconds": "Cycle interval (seconds)",
+          "physical_buttons_enabled": "React to the tag's physical buttons"
+        }
+      }
+    },
+    "abort": {
+      "no_tags_found": "No matched OpenEPaperLink tags were found yet. Make sure OpenEPaperLink has discovered your tag, then use \"Rescan for tags\". Unmatched tag models seen so far: {unmatched}",
+      "no_plugins_installed": "No plugins are installed yet.",
+      "tag_no_longer_available": "This tag is no longer available."
+    },
+    "error": {
+      "plugin_install_failed": "Could not install the plugin. Check the owner/repo/branch and that the repository contains a valid plugin.json.",
+      "trust_required": "You must confirm you trust this repository before installing.",
+      "discovery_failed": "Could not list repositories for this GitHub owner. Check the spelling and try again."
+    }
+  },
+  "entity": {
+    "select": {
+      "active_page": { "name": "Active page" }
+    },
+    "switch": {
+      "auto_cycle": { "name": "Auto cycle" }
+    },
+    "button": {
+      "next_page": { "name": "Next page" },
+      "previous_page": { "name": "Previous page" },
+      "refresh_page": { "name": "Refresh page" },
+      "show_battery_led": { "name": "Show battery status (LED)" }
+    }
+  }
+}
