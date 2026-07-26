@@ -37,6 +37,9 @@ async def test_match_device_model_exact_and_alias(hass):
     assert registry.match_device_model("EL026H3BRA") is not None
     assert registry.match_device_model("el026h3bra") is not None
     assert registry.match_device_model("Solum Newton 2.6") is not None
+    # Confirmed on real hardware: this is the exact device.model string
+    # OpenEPaperLink reports for the EL026H3BRA.
+    assert registry.match_device_model('M3 2.6"') is not None
     assert registry.match_device_model("Unknown Tag XYZ") is None
     assert registry.match_device_model(None) is None
 

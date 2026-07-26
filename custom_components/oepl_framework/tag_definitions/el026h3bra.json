@@ -2,7 +2,7 @@
   "schema_version": 1,
   "hardware_id": "el026h3bra",
   "model": "EL026H3BRA",
-  "model_aliases": ["EL026H3BRA", "Newton 2.6", "Solum Newton 2.6"],
+  "model_aliases": ["EL026H3BRA", "Newton 2.6", "Solum Newton 2.6", "M3 2.6\""],
   "oepl_hw_type": null,
   "manufacturer": "Solum",
   "display": {
@@ -49,6 +49,6 @@
   },
   "metadata": {
     "info_pages_marketing": 7,
-    "notes": "Marketing spec 'Infoseiten' count from the tag's datasheet; informational only, not a technical page-count constraint of this framework. Believed to be a Solum Newton 2.6in ESL running OpenEPaperLink firmware. 'oepl_hw_type' and 'features.status_led.verified' still need confirmation against a live OpenEPaperLink setup with this physical tag (see docs/tag-definition-schema.md)."
+    "notes": "Marketing spec 'Infoseiten' count from the tag's datasheet; informational only, not a technical page-count constraint of this framework. Confirmed on real hardware: OpenEPaperLink reports this tag's device.model as exactly 'M3 2.6\"' (an M3-generation OEPL tag, 2.6in). 'oepl_hw_type' and 'features.status_led.verified' still need confirmation against a live OpenEPaperLink setup with this physical tag (see docs/tag-definition-schema.md); display resolution/colors are still unverified against the real panel."
   }
 }
