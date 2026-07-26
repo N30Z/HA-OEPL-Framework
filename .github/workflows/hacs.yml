@@ -24,4 +24,4 @@ jobs:
           #   - brands: requires a separate PR to home-assistant/brands
           # Remove this "ignore" once those are done and default-store
           # submission is desired.
-          ignore: brands,topics
+          ignore: "brands topics"
