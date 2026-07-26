@@ -1,0 +1,11 @@
+{
+  "plugins": [
+    {
+      "id": "demo_plugin",
+      "name": "Demo Clock & Sensor Plugin",
+      "source": "builtin",
+      "description": "Bundled demo plugin proving the Plugin API end-to-end.",
+      "homepage": "https://github.com/N30Z/HA-OEPL-Framework"
+    }
+  ]
+}

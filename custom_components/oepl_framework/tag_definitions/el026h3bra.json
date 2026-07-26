@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "hardware_id": "el026h3bra",
+  "model": "EL026H3BRA",
+  "model_aliases": ["EL026H3BRA", "Newton 2.6", "Solum Newton 2.6"],
+  "oepl_hw_type": null,
+  "manufacturer": "Solum",
+  "display": {
+    "width": 360,
+    "height": 184,
+    "color_mode": "bwry",
+    "colors": ["black", "white", "red", "yellow"],
+    "rotation_default": 0
+  },
+  "buttons": {
+    "count": 2,
+    "mapping": [
+      {
+        "id": "button_1",
+        "trigger_type": "BUTTON1",
+        "label": "Button 1",
+        "default_action": "next_page"
+      },
+      {
+        "id": "button_2",
+        "trigger_type": "BUTTON2",
+        "label": "Button 2",
+        "default_action": "show_battery_led"
+      }
+    ]
+  },
+  "features": {
+    "status_led": {
+      "present": true,
+      "controllable": true,
+      "control_service": "open_epaper_link.setled",
+      "colors": ["red", "green", "blue", "yellow", "cyan", "magenta", "white"],
+      "color_rgb_map": {
+        "red": [255, 0, 0],
+        "green": [0, 255, 0],
+        "blue": [0, 0, 255],
+        "yellow": [255, 255, 0],
+        "cyan": [0, 255, 255],
+        "magenta": [255, 0, 255],
+        "white": [255, 255, 255]
+      },
+      "verified": false
+    }
+  },
+  "metadata": {
+    "info_pages_marketing": 7,
+    "notes": "Marketing spec 'Infoseiten' count from the tag's datasheet; informational only, not a technical page-count constraint of this framework. Believed to be a Solum Newton 2.6in ESL running OpenEPaperLink firmware. 'oepl_hw_type' and 'features.status_led.verified' still need confirmation against a live OpenEPaperLink setup with this physical tag (see docs/tag-definition-schema.md)."
+  }
+}
