@@ -26,6 +26,15 @@ INSTALLED_PACKAGE = "custom_components.oepl_framework.installed_plugins"
 BUILTIN_PACKAGE = "custom_components.oepl_framework.plugins.builtin"
 
 
+def _list_plugin_dirs(root: Path) -> list[Path]:
+    """Blocking directory scan for plugin subfolders — run via an executor."""
+    if not root.is_dir():
+        return []
+    return sorted(
+        p for p in root.iterdir() if p.is_dir() and (p / "plugin.json").is_file()
+    )
+
+
 class PluginError(Exception):
     """Raised for plugin load/validation errors."""
 
@@ -124,12 +133,10 @@ class PluginManager:
         await self.async_load_installed_plugins()
 
     async def async_load_builtin_plugins(self) -> None:
-        if not BUILTIN_PLUGINS_DIR.is_dir():
-            return
-        for plugin_dir in sorted(p for p in BUILTIN_PLUGINS_DIR.iterdir() if p.is_dir()):
-            manifest_path = plugin_dir / "plugin.json"
-            if not manifest_path.is_file():
-                continue
+        plugin_dirs = await self.hass.async_add_executor_job(
+            _list_plugin_dirs, BUILTIN_PLUGINS_DIR
+        )
+        for plugin_dir in plugin_dirs:
             try:
                 await self._async_load_plugin_dir(
                     plugin_dir, package=f"{BUILTIN_PACKAGE}.{plugin_dir.name}", source="builtin"
@@ -138,12 +145,10 @@ class PluginManager:
                 _LOGGER.error("Failed to load builtin plugin %s: %s", plugin_dir.name, err)
 
     async def async_load_installed_plugins(self) -> None:
-        if not INSTALLED_PLUGINS_DIR.is_dir():
-            return
-        for plugin_dir in sorted(p for p in INSTALLED_PLUGINS_DIR.iterdir() if p.is_dir()):
-            manifest_path = plugin_dir / "plugin.json"
-            if not manifest_path.is_file():
-                continue
+        plugin_dirs = await self.hass.async_add_executor_job(
+            _list_plugin_dirs, INSTALLED_PLUGINS_DIR
+        )
+        for plugin_dir in plugin_dirs:
             try:
                 await self._async_load_plugin_dir(
                     plugin_dir, package=f"{INSTALLED_PACKAGE}.{plugin_dir.name}", source="custom"

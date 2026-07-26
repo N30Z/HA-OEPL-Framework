@@ -2,7 +2,11 @@ from homeassistant.helpers import device_registry as dr
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
 from custom_components.oepl_framework.const import OEPL_DOMAIN
-from custom_components.oepl_framework.tag_registry import TagDefinitionRegistry, TagRegistry
+from custom_components.oepl_framework.tag_registry import (
+    TagDefinitionRegistry,
+    TagRegistry,
+    _extract_oepl_identifier,
+)
 
 
 async def test_load_bundled_definitions(hass):
@@ -110,3 +114,16 @@ async def test_tag_registry_override_takes_priority(hass):
     tag_registry.async_scan()
 
     assert tag_registry.matched[device.id].tag_definition.hardware_id == "el026h3bra"
+
+
+def test_extract_oepl_identifier_ignores_malformed_tuples():
+    # Regression test: a real HA instance can contain devices (from any
+    # integration) with an identifier tuple that isn't a clean 2-tuple;
+    # async_scan() must not crash while looking for the OEPL one.
+    identifiers = {("some_other_domain",), (OEPL_DOMAIN, "AA:BB:CC:DD:EE:FF")}
+    assert _extract_oepl_identifier(identifiers) == "AA:BB:CC:DD:EE:FF"
+
+
+def test_extract_oepl_identifier_returns_none_when_absent():
+    identifiers = {("some_other_domain", "abc")}
+    assert _extract_oepl_identifier(identifiers) is None

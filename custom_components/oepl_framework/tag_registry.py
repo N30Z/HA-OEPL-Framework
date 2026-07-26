@@ -300,7 +300,13 @@ class TagRegistry:
 
 
 def _extract_oepl_identifier(identifiers: set[tuple[str, str]]) -> str | None:
-    for domain, ident in identifiers:
+    for identifier in identifiers:
+        # HA guarantees 2-tuples here, but this scans *every* device in the
+        # registry (not just OEPL's), so defend against any oddly-shaped
+        # identifier another integration might register.
+        if len(identifier) != 2:
+            continue
+        domain, ident = identifier
         if domain == OEPL_DOMAIN:
             return ident
     return None
