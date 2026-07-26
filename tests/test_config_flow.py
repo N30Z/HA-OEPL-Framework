@@ -32,3 +32,25 @@ async def test_setup_flow_single_instance(hass):
     result = await hass.config_entries.flow.async_init(DOMAIN, context={"source": "user"})
     assert result["type"] == "abort"
     assert result["reason"] == "already_configured"
+
+
+async def test_options_flow_opens_menu(hass):
+    """Regression test: opening "Configure" on a set-up entry must not crash.
+
+    OptionsFlow.config_entry became a read-only property on the base class
+    in modern Home Assistant; assigning to it in __init__ raised
+    AttributeError, surfacing as a 500 error when opening the options flow.
+    """
+    oepl_entry = MockConfigEntry(domain=OEPL_DOMAIN)
+    oepl_entry.add_to_hass(hass)
+
+    entry = MockConfigEntry(domain=DOMAIN, options={})
+    entry.add_to_hass(hass)
+
+    assert await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+
+    result = await hass.config_entries.options.async_init(entry.entry_id)
+    assert result["type"] == "menu"
+    assert result["step_id"] == "init"
+    assert set(result["menu_options"]) == {"manage_plugins", "manage_tags", "rescan_tags"}

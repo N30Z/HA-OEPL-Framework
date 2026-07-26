@@ -52,14 +52,20 @@ class OeplFrameworkConfigFlow(ConfigFlow, domain=DOMAIN):
     @staticmethod
     @callback
     def async_get_options_flow(config_entry: ConfigEntry) -> OeplFrameworkOptionsFlow:
-        return OeplFrameworkOptionsFlow(config_entry)
+        return OeplFrameworkOptionsFlow()
 
 
 class OeplFrameworkOptionsFlow(OptionsFlow):
-    """Menu-driven options: manage plugins, manage per-tag page/trigger setup."""
+    """Menu-driven options: manage plugins, manage per-tag page/trigger setup.
 
-    def __init__(self, config_entry: ConfigEntry) -> None:
-        self.config_entry = config_entry
+    Does not override ``__init__`` to store ``config_entry`` — modern Home
+    Assistant provides it as a read-only property on the base class
+    (populated after construction), and assigning to it directly raises
+    ``AttributeError`` (surfaces to the user as "500 Internal Server Error"
+    when opening the options flow).
+    """
+
+    def __init__(self) -> None:
         self._selected_device_id: str | None = None
 
     @property
