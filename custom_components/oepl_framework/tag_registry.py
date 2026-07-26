@@ -260,6 +260,15 @@ class TagRegistry:
                 definition = self._definitions.match_device_model(device.model)
 
             if definition is None:
+                if device.configuration_url:
+                    # Almost certainly the OEPL Access Point (or another
+                    # hub/gateway device), not a battery tag: gateway
+                    # devices conventionally get a configuration_url (their
+                    # web UI) in HA, individual tags don't. Not a hard
+                    # guarantee — see docs/architecture.md — so this only
+                    # keeps it out of the "unmatched tags" listing; it was
+                    # never going to become a matched tag either way.
+                    continue
                 unmatched[device.id] = device.model
                 continue
 
