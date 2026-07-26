@@ -69,6 +69,17 @@ See [`docs/architecture.md`](docs/architecture.md) for how the plugin
 manager, tag registry and page-cycle engine fit together, and what still
 needs to be verified against real hardware.
 
+## Publishing to the HACS default store (optional, not done yet)
+
+This repo currently ships as a HACS **custom repository** only. To submit it
+to the official HACS default store later, two repo-owner actions are still
+needed (see `.github/workflows/hacs.yml`, which skips these checks for now):
+
+1. Add GitHub repository topics (Settings → General → Topics), e.g.
+   `home-assistant`, `hacs-integration`.
+2. Submit brand assets via a PR to
+   [home-assistant/brands](https://github.com/home-assistant/brands).
+
 ## Development
 
 ```bash

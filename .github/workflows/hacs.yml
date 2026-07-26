@@ -16,3 +16,12 @@ jobs:
       - uses: hacs/action@main
         with:
           category: integration
+          # This repo is distributed as a HACS custom repository, not (yet)
+          # submitted to the official HACS default store, so the two
+          # store-readiness checks that require external, repo-owner-only
+          # actions are skipped here:
+          #   - topics: requires setting GitHub repo topics in Settings
+          #   - brands: requires a separate PR to home-assistant/brands
+          # Remove this "ignore" once those are done and default-store
+          # submission is desired.
+          ignore: brands,topics
